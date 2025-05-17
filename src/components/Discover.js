@@ -1,65 +1,138 @@
-import React from 'react';
-import { Search } from 'lucide-react';
+// src/components/Discover.js
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const Discover = () => {
-  const cities = [
-    {
-      id: 1,
-      name: 'Seoul',
-      image: '/api/placeholder/800/400',
-      description: 'The vibrant capital of South Korea, known for its modern architecture, bustling markets, and rich cultural heritage'
-    },
-    {
-      id: 2,
-      name: 'Mexico City',
-      image: '/api/placeholder/800/400',
-      description: 'The lively capital of Mexico, famous for its colorful streets, delicious street food, and ancient Aztec ruins.'
-    },
-    {
-      id: 3,
-      name: 'New York',
-      image: '/api/placeholder/800/400',
-      description: 'The iconic "Big Apple" city in the United States, offering a dazzling skyline, world-class museums, and diverse culinary experiences.'
-    },
-    {
-      id: 4,
-      name: 'Bangkok',
-      image: '/api/placeholder/800/400',
-      description: 'The energetic capital of Thailand, renowned for its ornate temples, bustling street markets, and vibrant nightlife'
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  
+  const handleAddToWishlist = (destination) => {
+    if (user) {
+      // If logged in, would add to wishlist (in a real app)
+      alert(`${destination} added to your wishlist!`);
+    } else {
+      // If not logged in, prompt to login
+      // Using window.confirm to avoid ESLint "no-restricted-globals" error
+      if (window.confirm(`You need to login to add ${destination} to your wishlist. Go to login page?`)) {
+        navigate('/login');
+      }
     }
-  ];
+  };
 
   return (
-    <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-center">Discover cities</h1>
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Discover Destinations</h1>
       
-      {/* Search Bar */}
-      <div className="max-w-2xl mx-auto relative">
-        <Search className="absolute left-4 top-3 text-gray-400" />
-        <input
-          type="text"
-          placeholder="Search cities"
-          className="w-full pl-12 pr-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
-        />
+      <div className="mb-6">
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search destinations..."
+            className="w-full border border-gray-300 rounded-md py-2 px-4 pl-10"
+          />
+          <div className="absolute left-3 top-2.5 text-gray-400">
+            🔍
+          </div>
+        </div>
       </div>
-
-      {/* Popular Destinations */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-bold">Popular destinations</h2>
-        <p className="text-gray-600">Discover cities that people are travelling to right now</p>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Example destination cards */}
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="h-48 bg-gray-200 flex items-center justify-center text-4xl">
+            🗼
+          </div>
+          <div className="p-4">
+            <h2 className="font-bold text-xl mb-2">Paris, France</h2>
+            <p className="text-gray-700 mb-4">The city of lights and love, famous for its art, food, and culture.</p>
+            <button 
+              onClick={() => handleAddToWishlist('Paris')}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+            >
+              Add to Wishlist
+            </button>
+          </div>
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {cities.map(city => (
-            <div key={city.id} className="relative rounded-lg overflow-hidden group cursor-pointer">
-              <img src={city.image} alt={city.name} className="w-full h-64 object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/20">
-                <div className="absolute bottom-0 p-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">{city.name}</h3>
-                  <p className="text-white text-sm opacity-90">{city.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="h-48 bg-gray-200 flex items-center justify-center text-4xl">
+            🗽
+          </div>
+          <div className="p-4">
+            <h2 className="font-bold text-xl mb-2">New York, USA</h2>
+            <p className="text-gray-700 mb-4">The city that never sleeps, with iconic skyscrapers and diverse neighborhoods.</p>
+            <button 
+              onClick={() => handleAddToWishlist('New York')}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+            >
+              Add to Wishlist
+            </button>
+          </div>
+        </div>
+        
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="h-48 bg-gray-200 flex items-center justify-center text-4xl">
+            🏯
+          </div>
+          <div className="p-4">
+            <h2 className="font-bold text-xl mb-2">Tokyo, Japan</h2>
+            <p className="text-gray-700 mb-4">A blend of traditional and ultramodern, with amazing food and technology.</p>
+            <button 
+              onClick={() => handleAddToWishlist('Tokyo')}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+            >
+              Add to Wishlist
+            </button>
+          </div>
+        </div>
+        
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="h-48 bg-gray-200 flex items-center justify-center text-4xl">
+            🏝️
+          </div>
+          <div className="p-4">
+            <h2 className="font-bold text-xl mb-2">Bali, Indonesia</h2>
+            <p className="text-gray-700 mb-4">A tropical paradise with beautiful beaches, temples, and vibrant culture.</p>
+            <button 
+              onClick={() => handleAddToWishlist('Bali')}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+            >
+              Add to Wishlist
+            </button>
+          </div>
+        </div>
+        
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="h-48 bg-gray-200 flex items-center justify-center text-4xl">
+            🏙️
+          </div>
+          <div className="p-4">
+            <h2 className="font-bold text-xl mb-2">Dubai, UAE</h2>
+            <p className="text-gray-700 mb-4">A city of superlatives with futuristic architecture and luxury experiences.</p>
+            <button 
+              onClick={() => handleAddToWishlist('Dubai')}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+            >
+              Add to Wishlist
+            </button>
+          </div>
+        </div>
+        
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="h-48 bg-gray-200 flex items-center justify-center text-4xl">
+            🌉
+          </div>
+          <div className="p-4">
+            <h2 className="font-bold text-xl mb-2">San Francisco, USA</h2>
+            <p className="text-gray-700 mb-4">Known for the Golden Gate Bridge, tech innovation, and diverse food scene.</p>
+            <button 
+              onClick={() => handleAddToWishlist('San Francisco')}
+              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+            >
+              Add to Wishlist
+            </button>
+          </div>
         </div>
       </div>
     </div>
