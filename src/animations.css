@@ -1,0 +1,183 @@
+/* src/animations.css */
+
+/* Custom Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes fadeInRotate {
+    0% { opacity: 0; transform: translateY(30px) rotate(-5deg); }
+    100% { opacity: 1; transform: translateY(0) rotate(0); }
+  }
+  
+  /* Utility Classes */
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .pulsing {
+    animation: pulse 3s ease-in-out infinite;
+  }
+  
+  /* Feature Card Effect */
+  .feature-card {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Destination Card Hover Effect */
+  .destination-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  .destination-card:hover::before {
+    opacity: 0.6;
+  }
+  
+  .destination-card img {
+    transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  
+  .destination-card:hover img {
+    transform: scale(1.1);
+  }
+  
+  /* Gallery Image Hover Effects */
+  .gallery-image {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+  
+  .gallery-image::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(79, 70, 229, 0.2) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .gallery-image:hover::after {
+    opacity: 1;
+  }
+  
+  .gallery-image img {
+    transition: transform 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  
+  .gallery-image:hover img {
+    transform: scale(1.1);
+  }
+  
+  /* Custom Button Styles */
+  .btn-glow {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-glow::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.5s ease;
+    transform: scale(0.5);
+    pointer-events: none;
+  }
+  
+  .btn-glow:hover::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Reveal animations for ScrollTrigger */
+  .reveal-top {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+  }
+  
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s ease;
+  }
+  
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s ease;
+  }
+  
+  .reveal-active {
+    opacity: 1;
+    transform: translate(0);
+  }
+  
+  /* Gradient Text */
+  .gradient-text {
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+  
+  /* Custom animations */
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .animate-bounce {
+    animation: bounce 2s infinite;
+  }
+  
+  /* Mobile responsive adjustments */
+  @media (max-width: 768px) {
+    .feature-card:hover {
+      transform: translateY(-5px); /* Reduce transform on mobile */
+    }
+    
+    .floating {
+      animation: float 4s ease-in-out infinite; /* Shorter animation on mobile */
+    }
+  }
