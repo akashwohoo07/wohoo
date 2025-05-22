@@ -1,5 +1,5 @@
 // src/App.js
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import Navbar from './components/Navbar';
@@ -10,19 +10,6 @@ import DashboardLayout from './components/DashboardLayout';
 import Trips from './components/Trips';
 import Discover from './components/Discover';
 import Wishlist from './components/Wishlist';
-
-// Import animations CSS
-import './animations.css';
-
-// Import GSAP and register plugins
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-import { TextPlugin } from 'gsap/TextPlugin';
-import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
-
-// Register GSAP plugins globally
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin, MotionPathPlugin);
 
 // Protected route component - redirects to login if not logged in
 const ProtectedRoute = ({ children }) => {
@@ -49,22 +36,6 @@ const PublicOnlyRoute = ({ children }) => {
 // Main application content
 const AppContent = () => {
   const { loading, user } = useContext(AuthContext);
-
-  // Initialize ScrollTrigger for proper refresh when routes change
-  useEffect(() => {
-    // Tell ScrollTrigger to refresh on route change
-    const handleRouteChange = () => {
-      setTimeout(() => {
-        ScrollTrigger.refresh();
-      }, 200);
-    };
-
-    window.addEventListener('popstate', handleRouteChange);
-    
-    return () => {
-      window.removeEventListener('popstate', handleRouteChange);
-    };
-  }, []);
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
